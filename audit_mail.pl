@@ -69,8 +69,6 @@ my %lists = (
 	     'debian-news'          => 'debian-news',
 	     'debian-security-announce' => 'debian-security-announce',
 	     'debian-devel-announce' => 'debian-devel-announce',
-	     'debian-devel'         => 'debian-devel',
-	     'debian-user'          => 'debian-user',
 	     'tramp-devel@'         => 'rcp',
 	     'rittenhouse80211'     => '80211',
 	     'beginners@perl.org'   => 'perl-beginners',
@@ -102,8 +100,6 @@ my %beenthere_lists = (
 	     'plug@lists.phillylinux.org' => 'plug',
 	     'pm-road-trips@'             => 'pm-road-trips',
 	     'reefknot-devel@'            => 'reefknot-devel',
-	     'gnupg-announce@'            => 'gnupg-announce',
-             'gnupg-users@'               => 'gnupg-users',
 	     'bioperl-l@'                 => 'bioperl',
 	     'cpanplus-bugs@'             => 'cpanplus-bugs'
 	    );
