@@ -2,6 +2,13 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.9  2001/01/30 03:56:23  waltman
+# Uncommented out PGP header code.
+#
+# Removed -d switch from formail when adding PGP header, since when it's
+# there it wants to muck around with some fields in the body that (I
+# guess) it thinks are mail headers.
+#
 # Revision 1.8  2001/01/28 20:00:17  waltman
 # commented out code to add pgp header, since it seems to sometimes
 # change the message
@@ -17,7 +24,7 @@ use strict;
 # Added RBL checking and a bunch of Debian lists
 #
 
-use Mail::Audit;
+use Mail::Audit qw(PGP);
 use Text::Tabs;
 
 my $msg = Mail::Audit->new;
@@ -29,11 +36,7 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
     $msg->pipe('formail +2 -i "Reply-To: BUGTRAQ@securityfocus.com" -i "To: BUGTRAQ@securityfocus.com" -ds /home/waltman/bin/audit_mail.pl')
 }
 
-# If it's a PGP message, see if we need to add a header and resubmit
-if (my $pgp_action = need_pgp_header($msg)) {
-    log_mail($msg, "Adding PGP header, x-action = $pgp_action");
-    $msg->pipe("formail -i \"Content-Type: application/pgp; format=text; x-action=$pgp_action\" -s /home/waltman/bin/audit_mail.pl");
-}
+$msg->fix_pgp_headers;
 
 my %lists = (
 	     'qmail@'               => 'qmail',
@@ -134,33 +137,6 @@ if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
 }
 
 accept_mail($msg, '/var/spool/mail/waltman');
-
-sub need_pgp_header {
-    my $msg = shift;
-
-    # Does it already have the header?
-    if ($msg->get('Content-Type') =~ /message\/|multipart\/|application\/pgp/) {
-	return undef;
-    }
-
-    # Does it need a header?  Need to check the body...
-    my $body_refs = $msg->{obj}->body();
-    my $body = "";
-    $body .= $_ foreach (@$body_refs);
-
-    if ($body =~ /^-----BEGIN PGP MESSAGE-----.*
-                  ^-----END PGP MESSAGE-----/msx) {
-	return 'encrypt';
-    }
-    elsif ($body =~ /^-----BEGIN\ PGP\ SIGNED\ MESSAGE-----.*
-	             ^-----BEGIN\ PGP\ SIGNATURE-----.*
-	             ^-----END\ PGP\ SIGNATURE-----/msx ) {
-	return 'sign';
-    }
-    else {
-	return undef;
-    }
-}
 
 sub accept_mail {
     my ($msg, $folder) = @_;
