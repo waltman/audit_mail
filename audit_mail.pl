@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.33  2002/01/25 03:37:34  waltman
+# Added fslist
+#
 # Revision 1.32  2002/01/25 03:36:27  waltman
 # Meng stuff
 #
@@ -97,7 +100,7 @@ use strict;
 # Added RBL checking and a bunch of Debian lists
 #
 
-use Mail::Audit qw(PGP);
+use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
 
 my $msg = Mail::Audit->new;
@@ -107,6 +110,19 @@ my $maildir = '/home/waltman/Mail/';
 if ($msg->from =~ /mengwong/ and $msg->subject =~ /reject with reason (.*)/) {
     log_mail($msg, "Rejecting Meng mail: $1");
     $msg->reject($1);
+}
+
+# check for dups, and log if we find one
+$Mail::Audit::KillDups::dupfile = "/home/waltman/.msgid-cache";
+
+$msg->noexit(1); my $kill_dups_result = $msg->killdups; $msg->noexit(0);
+if ($kill_dups_result == 1) {
+    log_mail($msg, "KillDups: Error opening $Mail::Audit::KillDups::dupfile: $!");
+} elsif ($kill_dups_result == 2) {
+    log_mail($msg, "ignoring dup msgid " . $msg->get("Message-Id"));
+    accept_mail($msg, $maildir . "killdups");
+} elsif ($kill_dups_result == 3) {
+    log_mail($msg, "KillDups: seek failed: $!");
 }
 
 # Split digests and feed back into audit_mail.pl
@@ -273,7 +289,7 @@ sub log_mail {
 
     open LOG, '>>/home/waltman/Mail/mail_audit_log' or die "Can't open /home/waltman/Mail/mail_audit_log: $!";
     print LOG "From: ", $from, '  ', scalar localtime, "\n";
-    print LOG " Subject: ", $msg->subject();
+    print LOG " Subject: ", $msg->subject(), "\n";
     my $line3 = sprintf("  Folder: %-60s%9s\n", $folder, body_length($msg));
     print LOG unexpand($line3);
 }
