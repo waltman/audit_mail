@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.39  2002/06/02 04:34:32  waltman
+# Changed inbox to ~/Maildir
+#
 # Revision 1.38  2002/05/09 04:26:27  waltman
 # Changed iqvc's From address
 #
@@ -126,10 +129,10 @@ my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergen
 my $maildir = '/home/waltman/Mail/';
 
 # Meng stuff
-if ($msg->from =~ /mengwong/ and $msg->subject =~ /reject with reason (.*)/) {
-    log_mail($msg, "Rejecting Meng mail: $1");
-    $msg->reject($1);
-}
+# if ($msg->from =~ /mengwong/ and $msg->subject =~ /reject with reason (.*)/) {
+#     log_mail($msg, "Rejecting Meng mail: $1");
+#     $msg->reject($1);
+# }
 
 # check for dups, and log if we find one
 $Mail::Audit::KillDups::dupfile = "/home/waltman/.msgid-cache";
