@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.38  2002/05/09 04:26:27  waltman
+# Changed iqvc's From address
+#
 # Revision 1.37  2002/04/23 14:55:20  waltman
 # Added yapc-lodging
 # Removed bnt
@@ -262,17 +265,17 @@ if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
     chomp $perl6_list;
     if ($perl6_list =~ /^\s*$/)
 	{
-	accept_mail($msg, '/var/spool/mail/waltman');
+	accept_mail($msg, '/home/waltman/Maildir');
     } else {
 	accept_mail($msg, $maildir.$perl6_list);
     }
 }
 
-accept_mail($msg, '/var/spool/mail/waltman');
+accept_mail($msg, '/home/waltman/Maildir');
 
 sub accept_mail {
     my ($msg, $folder) = @_;
-    $folder = '/var/spool/mail/waltman' if $folder =~ /^\s*$/;  # default to inbox if it's blank
+    $folder = '/home/waltman/Maildir' if $folder =~ /^\s*$/;  # default to inbox if it's blank
     log_mail($msg, $folder);
     $msg->accept($folder);
 }
