@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.37  2002/04/23 14:55:20  waltman
+# Added yapc-lodging
+# Removed bnt
+#
 # Revision 1.36  2002/04/04 04:37:30  waltman
 # Set nomime=1, since it was rewriting message bodies and messing up gpg sigs.
 # Set an emergency mailbox
@@ -211,7 +215,7 @@ for my $pattern (keys %beenthere_lists) {
 }
 
 my %from_lists = (
-	     'iqvc_mail'           => 'iqvc',
+	     'qvc_email'           => 'iqvc',
 	     'redhat-announce'     => 'redhat_announce'
 	    );
 
