@@ -37,7 +37,8 @@ my %lists = (
 	     'yapc-planning@plover.com' => 'yapc-planning',
 	     'mjd-excursions@plover.com' => 'mjd-excursions',
 	     'pennband-gala@'       => 'penn-band',
-             'phillyos2@'           => 'phillyos2'
+             'phillyos2@'           => 'phillyos2',
+             'jschwart@voicenet.com' => 'secret_cinema'
 	    );
 
 for my $pattern (keys %lists) {
