@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.6  2000/10/26 00:37:32  waltman
+# Added ny.pm list
+# Remove RBL checking, since it never seems to catch anything
+#
 # Revision 1.5  2000/10/26 00:36:17  waltman
 # Added RBL checking and a bunch of Debian lists
 #
@@ -46,6 +50,7 @@ my %lists = (
 	     'debian-laptop'        => 'debian-laptop',
 	     'debian-news'          => 'debian-news',
 	     'debian-security-announce' => 'debian-security-announce',
+	     'debian-devel-announce' => 'debian-devel-announce',
 	     'debian-user'          => 'debian-user',
 	     'emacs-rcp@'           => 'rcp'
 	    );
