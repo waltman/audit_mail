@@ -64,6 +64,7 @@ $spamtest->set_persistent_address_list_factory($addrlistfactory);
 my $status = $spamtest->check($msg);
 $status->rewrite_mail if $rewrite;
 if ($status->is_spam) {
+    $status->rewrite_mail unless $rewrite;
     accept_mail($msg, $maildir.'spam');
 }
 
