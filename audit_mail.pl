@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.12  2001/04/25 01:32:43  waltman
+# Added bnt list
+#
 # Revision 1.11  2001/04/21 03:10:57  waltman
 # Added new entries for pads, pennfans, and 80211.
 #
@@ -42,7 +45,7 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
     $msg->pipe('formail +2 -i "Reply-To: BUGTRAQ@securityfocus.com" -i "To: BUGTRAQ@securityfocus.com" -ds /home/waltman/bin/audit_mail.pl')
 }
 
-$msg->fix_pgp_headers;
+#$msg->fix_pgp_headers;
 
 my %lists = (
 	     'qmail@'               => 'qmail',
