@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.46  2002/09/26 14:27:43  waltman
+# Added pm_groups
+#
 # Revision 1.45  2002/09/22 03:28:38  waltman
 # Added a check for dcanet-outage, and make dc.pm check more explicit so
 # that dcanet-outage mails don't end up there.
@@ -231,7 +234,7 @@ my %sender_lists = (
 	     'owner-linux-future'    => 'linux_future',
 	     'mersenne-invalid-reply-address'      => 'gimps',
 	     'owner-dc@'             => 'dc.pm',
-	     'owner-dcanet-outage@'  => 'dcanet-outages',
+	     'owner-dcanet-outage@'  => 'dcanet-outage',
 	     'owner-fslist'          => 'fslist'
 	    );
 
