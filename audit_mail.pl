@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.25  2001/07/25 01:47:54  waltman
+# Added reefknot-devel
+#
 # Revision 1.24  2001/07/22 13:51:43  waltman
 # Another attempt to trap that one bad message.  This time I added code
 # in the perl6-all logic itself.
@@ -84,7 +87,7 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
     $msg->pipe('formail +2 -i "Reply-To: BUGTRAQ@securityfocus.com" -i "To: BUGTRAQ@securityfocus.com" -ds /home/waltman/bin/audit_mail.pl')
 }
 
-#$msg->fix_pgp_headers;
+$msg->fix_pgp_headers;
 
 my %lists = (
 	     'qmail@'               => 'qmail',
