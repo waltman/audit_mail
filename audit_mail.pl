@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.41  2002/06/09 03:54:47  waltman
+# Added some rudimentary spam checking for known bad from addresses.
+#
 # Revision 1.40  2002/06/08 01:26:55  waltman
 # Commented out Meng stuff
 #
@@ -137,19 +140,19 @@ my $maildir = '/home/waltman/Mail/';
 #     $msg->reject($1);
 # }
 
-# check for dups, and log if we find one
-$Mail::Audit::KillDups::dupfile = "/home/waltman/.msgid-cache";
-$Mail::Audit::KillDups::cache_bytes = 30000;
+# # check for dups, and log if we find one
+# $Mail::Audit::KillDups::dupfile = "/home/waltman/.msgid-cache";
+# $Mail::Audit::KillDups::cache_bytes = 30000;
 
-$msg->noexit(1); my $kill_dups_result = $msg->killdups; $msg->noexit(0);
-if ($kill_dups_result == 1) {
-    log_mail($msg, "KillDups: Error opening $Mail::Audit::KillDups::dupfile: $!");
-} elsif ($kill_dups_result == 2) {
-    log_mail($msg, "ignoring dup msgid " . $msg->get("Message-Id"));
-    accept_mail($msg, $maildir . "killdups");
-} elsif ($kill_dups_result == 3) {
-    log_mail($msg, "KillDups: seek failed: $!");
-}
+# $msg->noexit(1); my $kill_dups_result = $msg->killdups; $msg->noexit(0);
+# if ($kill_dups_result == 1) {
+#     log_mail($msg, "KillDups: Error opening $Mail::Audit::KillDups::dupfile: $!");
+# } elsif ($kill_dups_result == 2) {
+#     log_mail($msg, "ignoring dup msgid " . $msg->get("Message-Id"));
+#     accept_mail($msg, $maildir . "killdups");
+# } elsif ($kill_dups_result == 3) {
+#     log_mail($msg, "KillDups: seek failed: $!");
+# }
 
 # Split digests and feed back into audit_mail.pl
 if ($msg->subject =~ /BUGTRAQ Digest/) {
@@ -225,7 +228,8 @@ my %beenthere_lists = (
 	     'reefknot-devel@'            => 'reefknot-devel',
 	     'gnupg-announce@'            => 'gnupg-announce',
              'gnupg-users@'               => 'gnupg-users',
-	     'bioperl-l@'                 => 'bioperl'
+	     'bioperl-l@'                 => 'bioperl',
+	     'cpanplus-bugs@'             => 'cpanplus-bugs'
 	    );
 
 for my $pattern (keys %beenthere_lists) {
