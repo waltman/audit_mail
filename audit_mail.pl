@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.40  2002/06/08 01:26:55  waltman
+# Commented out Meng stuff
+#
 # Revision 1.39  2002/06/02 04:34:32  waltman
 # Changed inbox to ~/Maildir
 #
@@ -155,6 +158,16 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
 }
 
 $msg->fix_pgp_headers;
+
+# check for bad from addresses
+if (open BMF, "/var/qmail/control/badmailfrom.wcm") {
+    while (<BMF>) {
+	chomp;
+	accept_mail($msg, $maildir.'spam')
+	    if index($msg->get('From'), $_) >= 0;
+    }
+    close BMF
+}
 
 my %lists = (
 	     'qmail@'               => 'qmail',
