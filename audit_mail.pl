@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.47  2002/10/01 20:42:21  waltman
+# changed dcanet-outages to dcanet-outage
+#
 # Revision 1.46  2002/09/26 14:27:43  waltman
 # Added pm_groups
 #
@@ -291,7 +294,8 @@ for my $pattern (keys %list_id_lists) {
 }
 
 my %mailing_list_lists = (
-	     'perl5-porters' => 'p5p'
+			  'perl5-porters' => 'p5p',
+			  'debian-devel'  => 'debian-devel'
 	    );
 
 for my $pattern (keys %mailing_list_lists) {
