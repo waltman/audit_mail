@@ -2,6 +2,11 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.34  2002/04/03 05:18:18  waltman
+# Changes for Mail::Audit 2.1:
+#   * turned on KillDups
+#   * add newline to subject when logging
+#
 # Revision 1.33  2002/01/25 03:37:34  waltman
 # Added fslist
 #
@@ -114,6 +119,7 @@ if ($msg->from =~ /mengwong/ and $msg->subject =~ /reject with reason (.*)/) {
 
 # check for dups, and log if we find one
 $Mail::Audit::KillDups::dupfile = "/home/waltman/.msgid-cache";
+$Mail::Audit::KillDups::cache_bytes = 30000;
 
 $msg->noexit(1); my $kill_dups_result = $msg->killdups; $msg->noexit(0);
 if ($kill_dups_result == 1) {
