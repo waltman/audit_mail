@@ -124,7 +124,6 @@ for my $pattern (keys %from_lists) {
 
 my %subject_lists = (
 		     'Dilbert Newsletter'   => 'dilbert',
-		     '\[pennfans\]'         => 'pennfans',
 		     '\[PADS\]'             => 'pads',
 		     '\[yapc-lodging\]'     => 'yapc-lodging'
 		    );
@@ -149,7 +148,8 @@ my %mailing_list_lists = (
 			  'perl5-porters' => 'p5p',
 			  'libtai-help'   => 'libtai',
 			  'ex-ad'         => 'ex-ad',
-			  'phillyjobs'    => 'phillyjobs'
+			  'phillyjobs'    => 'phillyjobs',
+			  'pennfans'      => 'pennfans'
 			 );
 
 for my $pattern (keys %mailing_list_lists) {
