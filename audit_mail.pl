@@ -109,8 +109,9 @@ for my $pattern (keys %beenthere_lists) {
 }
 
 my %from_lists = (
-	     'qvc_email'           => 'iqvc',
-	    );
+		  'qvc_email'           => 'iqvc',
+		  'enews@xpn.org'       => 'xpn',
+		 );
 
 for my $pattern (keys %from_lists) {
     accept_mail($msg, $maildir.$from_lists{$pattern})
