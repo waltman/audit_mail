@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.32  2002/01/25 03:36:27  waltman
+# Meng stuff
+#
 # Revision 1.31  2002/01/02 20:25:00  waltman
 # Added dc.pm
 #
@@ -155,7 +158,8 @@ my %sender_lists = (
 	     'owner-linux-kernel'    => 'linux_kernel',
 	     'owner-linux-future'    => 'linux_future',
 	     'mersenne-invalid-reply-address'      => 'gimps',
-	     'owner-dc'              => 'dc.pm'
+	     'owner-dc'              => 'dc.pm',
+	     'owner-fslist'          => 'fslist'
 	    );
 
 for my $pattern (keys %sender_lists) {
