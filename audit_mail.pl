@@ -1,159 +1,6 @@
 #!/usr/local/bin/perl
 use strict;
 
-# $Log: audit_mail.pl,v $
-# Revision 1.48  2002/10/11 03:49:06  waltman
-# Added debian-devel
-#
-# Revision 1.47  2002/10/01 20:42:21  waltman
-# changed dcanet-outages to dcanet-outage
-#
-# Revision 1.46  2002/09/26 14:27:43  waltman
-# Added pm_groups
-#
-# Revision 1.45  2002/09/22 03:28:38  waltman
-# Added a check for dcanet-outage, and make dc.pm check more explicit so
-# that dcanet-outage mails don't end up there.
-#
-# Revision 1.44  2002/09/07 00:11:07  waltman
-# Added another p5p check by looking at the Mailing-List header.  This
-# should catch the mail to perl-bugs which was getting missed by only
-# checking to and cc.
-#
-# Revision 1.43  2002/08/16 19:35:37  waltman
-# Added a new category that checks List-Id, and put an entry for bugtraq
-# in there.
-#
-# Revision 1.42  2002/08/01 01:10:42  waltman
-# Commented out killdups checking
-# Added cpanplus-bugs
-#
-# Revision 1.41  2002/06/09 03:54:47  waltman
-# Added some rudimentary spam checking for known bad from addresses.
-#
-# Revision 1.40  2002/06/08 01:26:55  waltman
-# Commented out Meng stuff
-#
-# Revision 1.39  2002/06/02 04:34:32  waltman
-# Changed inbox to ~/Maildir
-#
-# Revision 1.38  2002/05/09 04:26:27  waltman
-# Changed iqvc's From address
-#
-# Revision 1.37  2002/04/23 14:55:20  waltman
-# Added yapc-lodging
-# Removed bnt
-#
-# Revision 1.36  2002/04/04 04:37:30  waltman
-# Set nomime=1, since it was rewriting message bodies and messing up gpg sigs.
-# Set an emergency mailbox
-#
-# Revision 1.35  2002/04/04 03:39:15  waltman
-# Increased cache_bytes to 30000
-#
-# Revision 1.34  2002/04/03 05:18:18  waltman
-# Changes for Mail::Audit 2.1:
-#   * turned on KillDups
-#   * add newline to subject when logging
-#
-# Revision 1.33  2002/01/25 03:37:34  waltman
-# Added fslist
-#
-# Revision 1.32  2002/01/25 03:36:27  waltman
-# Meng stuff
-#
-# Revision 1.31  2002/01/02 20:25:00  waltman
-# Added dc.pm
-#
-# Revision 1.30  2002/01/02 20:17:44  waltman
-# Added bioperl
-#
-# Revision 1.29  2001/11/12 03:39:22  waltman
-# Added mjd-excursions
-#
-# Revision 1.28  2001/09/28 00:37:14  waltman
-# Changed address of rcp list
-#
-# Revision 1.27  2001/08/09 12:08:30  waltman
-# Added gnupg-announce and gnupg-users.
-#
-# Revision 1.26  2001/07/25 02:13:32  waltman
-# Uncommented call to fix_pgp_headers after fixing assorted bugs in
-# Audit.pm and PGP.pm
-#
-# Revision 1.25  2001/07/25 01:47:54  waltman
-# Added reefknot-devel
-#
-# Revision 1.24  2001/07/22 13:51:43  waltman
-# Another attempt to trap that one bad message.  This time I added code
-# in the perl6-all logic itself.
-#
-# Revision 1.23  2001/07/21 23:25:06  waltman
-# Another attempted fix to blank folder problem.  Now I'm checking if
-# it's all whitespace.
-#
-# Revision 1.22  2001/07/21 00:53:04  waltman
-# Fixed bug in last change.  Apparently strings don't like |=.
-#
-# Revision 1.21  2001/07/21 00:48:34  waltman
-# Added check for null folder.  Seems to be happening because of an
-# ill-formatted perl6-all message.
-#
-# Revision 1.20  2001/06/20 02:47:01  waltman
-# Added yapc-planning
-#
-# Revision 1.19  2001/05/29 03:23:16  waltman
-# Added pm-road-trips
-#
-# Revision 1.18  2001/05/24 22:35:49  waltman
-# Added perl-beginners
-#
-# Revision 1.17  2001/05/24 22:34:45  waltman
-# Log the From: line instead of the From_ line
-#
-# Revision 1.16  2001/05/20 15:25:12  waltman
-# Added london.pm
-#
-# Revision 1.15  2001/05/16 02:42:29  waltman
-# Changed regex comparisons to be case-insensitive
-#
-# Revision 1.14  2001/04/25 01:58:35  waltman
-# DOH!  Check $msg->subject when checking subject.
-#
-# Revision 1.13  2001/04/25 01:55:16  waltman
-# Commented out call to fix_pgp_headers, as it doesn't seem to be working.
-#
-# Revision 1.12  2001/04/25 01:32:43  waltman
-# Added bnt list
-#
-# Revision 1.11  2001/04/21 03:10:57  waltman
-# Added new entries for pads, pennfans, and 80211.
-#
-# Revision 1.10  2001/02/23 03:11:34  waltman
-# Replaced my old PGP code with the PGP plugin which adds the correct headers.
-#
-# Revision 1.9  2001/01/30 03:56:23  waltman
-# Uncommented out PGP header code.
-#
-# Removed -d switch from formail when adding PGP header, since when it's
-# there it wants to muck around with some fields in the body that (I
-# guess) it thinks are mail headers.
-#
-# Revision 1.8  2001/01/28 20:00:17  waltman
-# commented out code to add pgp header, since it seems to sometimes
-# change the message
-#
-# Revision 1.7  2000/12/29 03:19:20  waltman
-# Added debian-devel-announce
-#
-# Revision 1.6  2000/10/26 00:37:32  waltman
-# Added ny.pm list
-# Remove RBL checking, since it never seems to catch anything
-#
-# Revision 1.5  2000/10/26 00:36:17  waltman
-# Added RBL checking and a bunch of Debian lists
-#
-
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
 
@@ -228,7 +75,8 @@ my %lists = (
 	     'rittenhouse80211'     => '80211',
 	     'beginners@perl.org'   => 'perl-beginners',
 	     'yapc-planning@plover.com' => 'yapc-planning',
-	     'mjd-excursions@plover.com' => 'mjd-excursions'
+	     'mjd-excursions@plover.com' => 'mjd-excursions',
+	     'pennband-gala@'       => 'penn-band'
 	    );
 
 for my $pattern (keys %lists) {
@@ -304,6 +152,15 @@ my %mailing_list_lists = (
 for my $pattern (keys %mailing_list_lists) {
     accept_mail($msg, $maildir.$mailing_list_lists{$pattern})
 	if $msg->get('Mailing-List') =~ /$pattern/i;
+}
+
+my %x_mailing_list_lists = (
+			    'debian-devel' => 'debian-devel'
+	    );
+
+for my $pattern (keys %x_mailing_list_lists) {
+    accept_mail($msg, $maildir.$x_mailing_list_lists{$pattern})
+	if $msg->get('X-Mailing-List') =~ /$pattern/i;
 }
 
 if ($msg->subject =~ /sendcellip/) {
