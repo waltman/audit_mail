@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.31  2002/01/02 20:25:00  waltman
+# Added dc.pm
+#
 # Revision 1.30  2002/01/02 20:17:44  waltman
 # Added bioperl
 #
@@ -96,6 +99,12 @@ use Text::Tabs;
 
 my $msg = Mail::Audit->new;
 my $maildir = '/home/waltman/Mail/';
+
+# Meng stuff
+if ($msg->from =~ /mengwong/ and $msg->subject =~ /reject with reason (.*)/) {
+    log_mail($msg, "Rejecting Meng mail: $1");
+    $msg->reject($1);
+}
 
 # Split digests and feed back into audit_mail.pl
 if ($msg->subject =~ /BUGTRAQ Digest/) {
