@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.26  2001/07/25 02:13:32  waltman
+# Uncommented call to fix_pgp_headers after fixing assorted bugs in
+# Audit.pm and PGP.pm
+#
 # Revision 1.25  2001/07/25 01:47:54  waltman
 # Added reefknot-devel
 #
@@ -139,7 +143,9 @@ for my $pattern (keys %sender_lists) {
 my %beenthere_lists = (
 	     'plug@lists.phillylinux.org' => 'plug',
 	     'pm-road-trips@'             => 'pm-road-trips',
-	     'reefknot-devel@'            => 'reefknot-devel'
+	     'reefknot-devel@'            => 'reefknot-devel',
+	     'gnupg-announce@'            => 'gnupg-announce',
+             'gnupg-users@'               => 'gnupg-users'
 	    );
 
 for my $pattern (keys %beenthere_lists) {
