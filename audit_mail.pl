@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.23  2001/07/21 23:25:06  waltman
+# Another attempted fix to blank folder problem.  Now I'm checking if
+# it's all whitespace.
+#
 # Revision 1.22  2001/07/21 00:53:04  waltman
 # Fixed bug in last change.  Apparently strings don't like |=.
 #
@@ -181,7 +185,12 @@ if ($msg->subject =~ /sendmiscip/) {
 if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
     my $perl6_list = $msg->get('X-Mailing-List-Name');
     chomp $perl6_list;
-    accept_mail($msg, $maildir.$perl6_list);
+    if ($perl6_list =~ /^\s*$/)
+	{
+	accept_mail($msg, '/var/spool/mail/waltman');
+    } else {
+	accept_mail($msg, $maildir.$perl6_list);
+    }
 }
 
 accept_mail($msg, '/var/spool/mail/waltman');
