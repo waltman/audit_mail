@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.18  2001/05/24 22:35:49  waltman
+# Added perl-beginners
+#
 # Revision 1.17  2001/05/24 22:34:45  waltman
 # Log the From: line instead of the From_ line
 #
@@ -110,6 +113,7 @@ for my $pattern (keys %sender_lists) {
 
 my %beenthere_lists = (
 	     'plug@lists.phillylinux.org' => 'plug',
+	     'pm-road-trips@'             => 'pm-road-trips'
 	    );
 
 for my $pattern (keys %beenthere_lists) {
