@@ -2,6 +2,11 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.44  2002/09/07 00:11:07  waltman
+# Added another p5p check by looking at the Mailing-List header.  This
+# should catch the mail to perl-bugs which was getting missed by only
+# checking to and cc.
+#
 # Revision 1.43  2002/08/16 19:35:37  waltman
 # Added a new category that checks List-Id, and put an entry for bugtraq
 # in there.
@@ -221,7 +226,8 @@ my %sender_lists = (
 	     'owner-linux-kernel'    => 'linux_kernel',
 	     'owner-linux-future'    => 'linux_future',
 	     'mersenne-invalid-reply-address'      => 'gimps',
-	     'owner-dc'              => 'dc.pm',
+	     'owner-dc@'             => 'dc.pm',
+	     'owner-dcanet-outage@'  => 'dcanet-outages',
 	     'owner-fslist'          => 'fslist'
 	    );
 
