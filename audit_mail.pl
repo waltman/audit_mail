@@ -88,7 +88,8 @@ my %sender_lists = (
 		    'owner-dcanet-outage@'  => 'dcanet-outage',
 		    'owner-fslist'          => 'fslist',
 		    'owner-paris-pm-list'   => 'paris.pm',
-		    'yapc-plan'             => 'yapc-plan'
+		    'yapc-plan'             => 'yapc-plan',
+		    'owner-yapc-europe'     => 'yapc-europe'
 	    );
 
 for my $pattern (keys %sender_lists) {
