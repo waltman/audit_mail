@@ -58,7 +58,6 @@ my %lists = (
 	     'plug@.*nothinbut.net' => 'plug',
 	     'marsneedswomen@'      => 'marsneedswomen',
 	     'leafnode-list@'       => 'leafnode',
-	     'redhat-announce'      => 'redhat_announce',
 	     'phl@lists.pm.org'     => 'perlmong',
 	     'ny@lists.pm.org'      => 'ny.pm',
 	     'gnome-announce-list@' => 'gnome_announce',
@@ -111,7 +110,6 @@ for my $pattern (keys %beenthere_lists) {
 
 my %from_lists = (
 	     'qvc_email'           => 'iqvc',
-	     'redhat-announce'     => 'redhat_announce'
 	    );
 
 for my $pattern (keys %from_lists) {
