@@ -3,43 +3,11 @@ use strict;
 
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
-#use Mail::SpamAssassin;
-#use Getopt::Long;
-
-# parse command line parameters
-#my $rewrite;
-#GetOptions("rewrite|r" => \$rewrite)  # rewrite mail with spamassassin info
-#    or exit;
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency');
 my $maildir = '/home/waltman/Mail/';
-#my $spamassassin_semaphore = '/home/waltman/.sa_skip';
-
-# Split digests and feed back into audit_mail.pl
-#if ($msg->subject =~ /BUGTRAQ Digest/) {
-#    log_mail($msg, 'BUGTRAQ Digest');
-#    $msg->pipe('formail +2 -i "Reply-To: BUGTRAQ@securityfocus.com" -i "To: BUGTRAQ@securityfocus.com" -ds /home/waltman/bin/audit_mail.pl')
-#}
 
 $msg->fix_pgp_headers;
-
-# unless (-e $spamassassin_semaphore) {
-#     # run through spamassassin
-#     my $spamtest = Mail::SpamAssassin->new();
-
-#     # add address to auto-whitelist
-#     require Mail::SpamAssassin::DBBasedAddrList;
-#     my $addrlistfactory = Mail::SpamAssassin::DBBasedAddrList->new();
-#     $spamtest->set_persistent_address_list_factory($addrlistfactory);
-
-#     # check status
-#     my $status = $spamtest->check($msg);
-#     $status->rewrite_mail if $rewrite;
-#     if ($status->is_spam) {
-# 	$status->rewrite_mail unless $rewrite;
-# 	accept_mail($msg, $maildir.'spam');
-#     }
-# }
 
 my %lists = (
 	     'qmail@'               => 'qmail',
@@ -68,7 +36,8 @@ my %lists = (
 	     'beginners@perl.org'   => 'perl-beginners',
 	     'yapc-planning@plover.com' => 'yapc-planning',
 	     'mjd-excursions@plover.com' => 'mjd-excursions',
-	     'pennband-gala@'       => 'penn-band'
+	     'pennband-gala@'       => 'penn-band',
+             'phillyos2@'           => 'phillyos2'
 	    );
 
 for my $pattern (keys %lists) {
