@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.29  2001/11/12 03:39:22  waltman
+# Added mjd-excursions
+#
 # Revision 1.28  2001/09/28 00:37:14  waltman
 # Changed address of rcp list
 #
@@ -152,7 +155,8 @@ my %beenthere_lists = (
 	     'pm-road-trips@'             => 'pm-road-trips',
 	     'reefknot-devel@'            => 'reefknot-devel',
 	     'gnupg-announce@'            => 'gnupg-announce',
-             'gnupg-users@'               => 'gnupg-users'
+             'gnupg-users@'               => 'gnupg-users',
+	     'bioperl-l@'                 => 'bioperl'
 	    );
 
 for my $pattern (keys %beenthere_lists) {
