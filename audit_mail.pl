@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.11  2001/04/21 03:10:57  waltman
+# Added new entries for pads, pennfans, and 80211.
+#
 # Revision 1.10  2001/02/23 03:11:34  waltman
 # Replaced my old PGP code with the PGP plugin which adds the correct headers.
 #
@@ -107,7 +110,8 @@ for my $pattern (keys %from_lists) {
 my %subject_lists = (
 		     'Dilbert Newsletter'   => 'dilbert',
 		     '\[pennfans\]'         => 'pennfans',
-		     '\[PADS\]'             => 'pads'
+		     '\[PADS\]'             => 'pads',
+		     '\[bitsntits\]'        => 'bnt'
 		    );
 
 for my $pattern (keys %subject_lists) {
