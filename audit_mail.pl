@@ -13,26 +13,7 @@ GetOptions("rewrite|r" => \$rewrite)  # rewrite mail with spamassassin info
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency');
 my $maildir = '/home/waltman/Mail/';
-
-# Meng stuff
-# if ($msg->from =~ /mengwong/ and $msg->subject =~ /reject with reason (.*)/) {
-#     log_mail($msg, "Rejecting Meng mail: $1");
-#     $msg->reject($1);
-# }
-
-# # check for dups, and log if we find one
-# $Mail::Audit::KillDups::dupfile = "/home/waltman/.msgid-cache";
-# $Mail::Audit::KillDups::cache_bytes = 30000;
-
-# $msg->noexit(1); my $kill_dups_result = $msg->killdups; $msg->noexit(0);
-# if ($kill_dups_result == 1) {
-#     log_mail($msg, "KillDups: Error opening $Mail::Audit::KillDups::dupfile: $!");
-# } elsif ($kill_dups_result == 2) {
-#     log_mail($msg, "ignoring dup msgid " . $msg->get("Message-Id"));
-#     accept_mail($msg, $maildir . "killdups");
-# } elsif ($kill_dups_result == 3) {
-#     log_mail($msg, "KillDups: seek failed: $!");
-# }
+my $spamassassin_semaphore = '/home/waltman/.sa_skip';
 
 # Split digests and feed back into audit_mail.pl
 if ($msg->subject =~ /BUGTRAQ Digest/) {
@@ -42,30 +23,22 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
 
 $msg->fix_pgp_headers;
 
-# # check for bad from addresses
-# if (open BMF, "/var/qmail/control/badmailfrom.wcm") {
-#     while (<BMF>) {
-# 	chomp;
-# 	accept_mail($msg, $maildir.'spam')
-# 	    if index($msg->get('From'), $_) >= 0;
-#     }
-#     close BMF
-# }
+unless (-e $spamassassin_semaphore) {
+    # run through spamassassin
+    my $spamtest = Mail::SpamAssassin->new();
 
-# run through spamassassin
-my $spamtest = Mail::SpamAssassin->new();
+    # add address to auto-whitelist
+    require Mail::SpamAssassin::DBBasedAddrList;
+    my $addrlistfactory = Mail::SpamAssassin::DBBasedAddrList->new();
+    $spamtest->set_persistent_address_list_factory($addrlistfactory);
 
-# add address to auto-whitelist
-require Mail::SpamAssassin::DBBasedAddrList;
-my $addrlistfactory = Mail::SpamAssassin::DBBasedAddrList->new();
-$spamtest->set_persistent_address_list_factory($addrlistfactory);
-
-# check status
-my $status = $spamtest->check($msg);
-$status->rewrite_mail if $rewrite;
-if ($status->is_spam) {
-    $status->rewrite_mail unless $rewrite;
-    accept_mail($msg, $maildir.'spam');
+    # check status
+    my $status = $spamtest->check($msg);
+    $status->rewrite_mail if $rewrite;
+    if ($status->is_spam) {
+	$status->rewrite_mail unless $rewrite;
+	accept_mail($msg, $maildir.'spam');
+    }
 }
 
 my %lists = (
@@ -159,7 +132,8 @@ for my $pattern (keys %subject_lists) {
 my %list_id_lists = (
 		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
 		     'pm_groups.pm.org'                  => 'pm_groups',
-		     'pv.lists.LinuxForce.net'           => 'lfi'
+		     'pv.lists.LinuxForce.net'           => 'lfi',
+		     'announce.pennclubofboston.org'     => 'pennclubofboston'
 		    );
 
 for my $pattern (keys %list_id_lists) {
