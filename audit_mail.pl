@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.43  2002/08/16 19:35:37  waltman
+# Added a new category that checks List-Id, and put an entry for bugtraq
+# in there.
+#
 # Revision 1.42  2002/08/01 01:10:42  waltman
 # Commented out killdups checking
 # Added cpanplus-bugs
@@ -270,6 +274,15 @@ my %list_id_lists = (
 for my $pattern (keys %list_id_lists) {
     accept_mail($msg, $maildir.$list_id_lists{$pattern})
 	if $msg->get('List-Id') =~ /$pattern/i;
+}
+
+my %mailing_list_lists = (
+	     'perl5-porters' => 'p5p'
+	    );
+
+for my $pattern (keys %mailing_list_lists) {
+    accept_mail($msg, $maildir.$mailing_list_lists{$pattern})
+	if $msg->get('Mailing-List') =~ /$pattern/i;
 }
 
 if ($msg->subject =~ /sendcellip/) {
