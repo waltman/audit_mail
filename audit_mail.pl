@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.21  2001/07/21 00:48:34  waltman
+# Added check for null folder.  Seems to be happening because of an
+# ill-formatted perl6-all message.
+#
 # Revision 1.20  2001/06/20 02:47:01  waltman
 # Added yapc-planning
 #
@@ -181,7 +185,7 @@ accept_mail($msg, '/var/spool/mail/waltman');
 
 sub accept_mail {
     my ($msg, $folder) = @_;
-    $folder |= '/var/spool/mail/waltman';  # default to inbox if it's blank
+    $folder = '/var/spool/mail/waltman' unless $folder;  # default to inbox if it's blank
     log_mail($msg, $folder);
     $msg->accept($folder);
 }
