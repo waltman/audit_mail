@@ -4,6 +4,12 @@ use strict;
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
 use Mail::SpamAssassin;
+use Getopt::Long;
+
+# parse command line parameters
+my $rewrite;
+GetOptions("rewrite|r" => \$rewrite)  # rewrite mail with spamassassin info
+    or exit;
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency');
 my $maildir = '/home/waltman/Mail/';
@@ -56,7 +62,8 @@ $spamtest->set_persistent_address_list_factory($addrlistfactory);
 
 # check status
 my $status = $spamtest->check($msg);
-if ($status->is_spam ()) {
+$status->rewrite_mail if $rewrite;
+if ($status->is_spam) {
     accept_mail($msg, $maildir.'spam');
 }
 
