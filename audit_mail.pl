@@ -103,7 +103,7 @@ my %list_id_lists = (
 		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
 		     'pm_groups.pm.org'                  => 'pm_groups',
 		     'pv.lists.LinuxForce.net'           => 'lfi',
-		     'announce.pennclubofboston.org'     => 'pennclubofbostonn'
+		     'announce.pennclubofboston.org'     => 'pennclubofboston'
 		    );
 
 for my $pattern (keys %list_id_lists) {
