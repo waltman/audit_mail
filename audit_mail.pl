@@ -48,8 +48,14 @@ $msg->fix_pgp_headers;
 
 # run through spamassassin
 my $spamtest = Mail::SpamAssassin->new();
-my $status = $spamtest->check($msg);
 
+# add address to auto-whitelist
+require Mail::SpamAssassin::DBBasedAddrList;
+my $addrlistfactory = Mail::SpamAssassin::DBBasedAddrList->new();
+$spamtest->set_persistent_address_list_factory($addrlistfactory);
+
+# check status
+my $status = $spamtest->check($msg);
 if ($status->is_spam ()) {
     accept_mail($msg, $maildir.'spam');
 }
