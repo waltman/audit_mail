@@ -119,7 +119,8 @@ my %mailing_list_lists = (
 			  'phillyjobs'      => 'phillyjobs',
 			  'pennfans'        => 'pennfans',
 			  'BrynMawrSpecFic' => 'BrynMawrSpecFic',
-                          'im2000'          => 'im2000'
+                          'im2000'          => 'im2000',
+                          'geohack'         => 'geohack',
 			 );
 
 for my $pattern (keys %mailing_list_lists) {
