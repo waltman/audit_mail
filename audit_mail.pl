@@ -71,7 +71,8 @@ my %beenthere_lists = (
 	     'pm-road-trips@'             => 'pm-road-trips',
 	     'reefknot-devel@'            => 'reefknot-devel',
 	     'bioperl-l@'                 => 'bioperl',
-	     'cpanplus-bugs@'             => 'cpanplus-bugs'
+	     'cpanplus-bugs@'             => 'cpanplus-bugs',
+             'prime@'                     => 'gimps'
 	    );
 
 for my $pattern (keys %beenthere_lists) {
