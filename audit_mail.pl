@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.27  2001/08/09 12:08:30  waltman
+# Added gnupg-announce and gnupg-users.
+#
 # Revision 1.26  2001/07/25 02:13:32  waltman
 # Uncommented call to fix_pgp_headers after fixing assorted bugs in
 # Audit.pm and PGP.pm
@@ -118,7 +121,7 @@ my %lists = (
 	     'debian-security-announce' => 'debian-security-announce',
 	     'debian-devel-announce' => 'debian-devel-announce',
 	     'debian-user'          => 'debian-user',
-	     'emacs-rcp@'           => 'rcp',
+	     'tramp-devel@'         => 'rcp',
 	     'rittenhouse80211'     => '80211',
 	     'beginners@perl.org'   => 'perl-beginners',
 	     'yapc-planning@plover.com' => 'yapc-planning'
