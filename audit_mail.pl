@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.35  2002/04/04 03:39:15  waltman
+# Increased cache_bytes to 30000
+#
 # Revision 1.34  2002/04/03 05:18:18  waltman
 # Changes for Mail::Audit 2.1:
 #   * turned on KillDups
@@ -108,7 +111,7 @@ use strict;
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
 
-my $msg = Mail::Audit->new;
+my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency');
 my $maildir = '/home/waltman/Mail/';
 
 # Meng stuff
