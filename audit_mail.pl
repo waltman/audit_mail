@@ -83,12 +83,13 @@ for my $pattern (keys %lists) {
 }
 
 my %sender_lists = (
-	     'owner-linux-kernel'    => 'linux_kernel',
-	     'owner-linux-future'    => 'linux_future',
-	     'mersenne-invalid-reply-address'      => 'gimps',
-	     'owner-dc@'             => 'dc.pm',
-	     'owner-dcanet-outage@'  => 'dcanet-outage',
-	     'owner-fslist'          => 'fslist'
+		    'owner-linux-kernel'    => 'linux_kernel',
+		    'owner-linux-future'    => 'linux_future',
+		    'mersenne-invalid-reply-address'      => 'gimps',
+		    'owner-dc@'             => 'dc.pm',
+		    'owner-dcanet-outage@'  => 'dcanet-outage',
+		    'owner-fslist'          => 'fslist',
+		    'owner-paris-pm-list'   => 'paris-pm'
 	    );
 
 for my $pattern (keys %sender_lists) {
