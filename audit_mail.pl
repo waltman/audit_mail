@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.13  2001/04/25 01:55:16  waltman
+# Commented out call to fix_pgp_headers, as it doesn't seem to be working.
+#
 # Revision 1.12  2001/04/25 01:32:43  waltman
 # Added bnt list
 #
@@ -119,7 +122,7 @@ my %subject_lists = (
 
 for my $pattern (keys %subject_lists) {
     accept_mail($msg, $maildir.$subject_lists{$pattern})
-	if $msg->from =~ /$pattern/i;
+	if $msg->subject =~ /$pattern/i;
 }
 
 if ($msg->subject =~ /sendcellip/) {
