@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.28  2001/09/28 00:37:14  waltman
+# Changed address of rcp list
+#
 # Revision 1.27  2001/08/09 12:08:30  waltman
 # Added gnupg-announce and gnupg-users.
 #
@@ -124,7 +127,8 @@ my %lists = (
 	     'tramp-devel@'         => 'rcp',
 	     'rittenhouse80211'     => '80211',
 	     'beginners@perl.org'   => 'perl-beginners',
-	     'yapc-planning@plover.com' => 'yapc-planning'
+	     'yapc-planning@plover.com' => 'yapc-planning',
+	     'mjd-excursions@plover.com' => 'mjd-excursions'
 	    );
 
 for my $pattern (keys %lists) {
