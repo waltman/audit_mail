@@ -89,12 +89,17 @@ if ($msg->subject =~ /sendcellip/) {
 
 if ($msg->subject =~ /sendyahooip/) {
     log_mail($msg, 'sendyahooip');
-    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "" wmankowski@yahoo.com')
+    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" wmankowski@yahoo.com')
 }
 
 if ($msg->subject =~ /sendhotmailip/) {
     log_mail($msg, 'sendhotmailip');
-    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "" w_mankowski@hotmail.com')
+    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" w_mankowski@hotmail.com')
+}
+
+if ($msg->subject =~ /sendmiscip/) {
+    log_mail($msg, 'sendmiscip');
+    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" wmankows@misc.arsdigita.com')
 }
 
 accept_mail($msg, '/var/spool/mail/waltman');
