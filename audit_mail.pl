@@ -163,6 +163,11 @@ for my $pattern (keys %x_mailing_list_lists) {
 	if $msg->get('X-Mailing-List') =~ /$pattern/i;
 }
 
+# This should work for all ezmlm lists
+if ($msg->get('List-Post') =~ /mailto:([^@]+)@/) {
+    accept_mail($msg, $maildir.$1)
+}
+
 if ($msg->subject =~ /sendcellip/) {
     log_mail($msg, 'sendcellip');
     $msg->pipe('/sbin/ifconfig | grep inet | mail -s "" 4844327897@mobile.att.net')
