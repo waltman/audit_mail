@@ -65,7 +65,6 @@ my %lists = (
 	     'bootstrap@perl.org'   => 'bootstrap',
 	     'debian-announce'      => 'debian-announce',
 	     'debian-changes'       => 'debian-changes',
-	     'debian-laptop'        => 'debian-laptop',
 	     'debian-news'          => 'debian-news',
 	     'debian-security-announce' => 'debian-security-announce',
 	     'debian-devel-announce' => 'debian-devel-announce',
