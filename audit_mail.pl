@@ -123,6 +123,7 @@ my %mailing_list_lists = (
                           'im2000'          => 'im2000',
                           'geohack'         => 'geohack',
                           'bordshake'       => 'bordshake',
+                          'pennrmug'        => 'pennrmug',
 			 );
 
 for my $pattern (keys %mailing_list_lists) {
