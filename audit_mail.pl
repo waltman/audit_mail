@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.19  2001/05/29 03:23:16  waltman
+# Added pm-road-trips
+#
 # Revision 1.18  2001/05/24 22:35:49  waltman
 # Added perl-beginners
 #
@@ -92,7 +95,8 @@ my %lists = (
 	     'debian-user'          => 'debian-user',
 	     'emacs-rcp@'           => 'rcp',
 	     'rittenhouse80211'     => '80211',
-	     'beginners@perl.org'   => 'perl-beginners'
+	     'beginners@perl.org'   => 'perl-beginners',
+	     'yapc-planning@plover.com' => 'yapc-planning'
 	    );
 
 for my $pattern (keys %lists) {
