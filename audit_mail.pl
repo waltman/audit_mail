@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.14  2001/04/25 01:58:35  waltman
+# DOH!  Check $msg->subject when checking subject.
+#
 # Revision 1.13  2001/04/25 01:55:16  waltman
 # Commented out call to fix_pgp_headers, as it doesn't seem to be working.
 #
@@ -80,7 +83,7 @@ my %lists = (
 
 for my $pattern (keys %lists) {
     accept_mail($msg, $maildir.$lists{$pattern})
-	if $msg->to =~ /$pattern/ or $msg->cc =~ /$pattern/;
+	if $msg->to =~ /$pattern/i or $msg->cc =~ /$pattern/i;
 }
 
 my %sender_lists = (
@@ -91,7 +94,7 @@ my %sender_lists = (
 
 for my $pattern (keys %sender_lists) {
     accept_mail($msg, $maildir.$sender_lists{$pattern})
-	if $msg->get('Sender') =~ /$pattern/;
+	if $msg->get('Sender') =~ /$pattern/i;
 }
 
 my %beenthere_lists = (
@@ -100,7 +103,7 @@ my %beenthere_lists = (
 
 for my $pattern (keys %beenthere_lists) {
     accept_mail($msg, $maildir.$beenthere_lists{$pattern})
-	if $msg->get('X-BeenThere') =~ /$pattern/;
+	if $msg->get('X-BeenThere') =~ /$pattern/i;
 }
 
 my %from_lists = (
