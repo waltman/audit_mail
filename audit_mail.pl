@@ -87,6 +87,16 @@ if ($msg->subject =~ /sendcellip/) {
     $msg->pipe('/sbin/ifconfig | grep inet | mail -s "" 4844327897@mobile.att.net')
 }
 
+if ($msg->subject =~ /sendyahooip/) {
+    log_mail($msg, 'sendyahooip');
+    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "" wmankowski@yahoo.com')
+}
+
+if ($msg->subject =~ /sendhotmailip/) {
+    log_mail($msg, 'sendhotmailip');
+    $msg->pipe('/sbin/ifconfig | grep inet | mail -s "" w_mankowski@hotmail.com')
+}
+
 accept_mail($msg, '/var/spool/mail/waltman');
 
 sub need_pgp_header {
