@@ -135,8 +135,9 @@ for my $pattern (keys %subject_lists) {
 
 my %list_id_lists = (
 		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
-		     'pm_groups.pm.org'                  => 'pm_groups'
-	    );
+		     'pm_groups.pm.org'                  => 'pm_groups',
+		     'pv.lists.LinuxForce.net'           => 'lfi'
+		    );
 
 for my $pattern (keys %list_id_lists) {
     accept_mail($msg, $maildir.$list_id_lists{$pattern})
@@ -148,7 +149,7 @@ my %mailing_list_lists = (
 			  'libtai-help'   => 'libtai',
 			  'ex-ad'         => 'ex-ad',
 			  'phillyjobs'    => 'phillyjobs'
-	    );
+			 );
 
 for my $pattern (keys %mailing_list_lists) {
     accept_mail($msg, $maildir.$mailing_list_lists{$pattern})
@@ -157,7 +158,7 @@ for my $pattern (keys %mailing_list_lists) {
 
 my %x_mailing_list_lists = (
 			    'debian-devel' => 'debian-devel'
-	    );
+			   );
 
 for my $pattern (keys %x_mailing_list_lists) {
     accept_mail($msg, $maildir.$x_mailing_list_lists{$pattern})
