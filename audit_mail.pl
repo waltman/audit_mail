@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.48  2002/10/11 03:49:06  waltman
+# Added debian-devel
+#
 # Revision 1.47  2002/10/01 20:42:21  waltman
 # changed dcanet-outages to dcanet-outage
 #
@@ -219,6 +222,7 @@ my %lists = (
 	     'debian-news'          => 'debian-news',
 	     'debian-security-announce' => 'debian-security-announce',
 	     'debian-devel-announce' => 'debian-devel-announce',
+	     'debian-devel'         => 'debian-devel',
 	     'debian-user'          => 'debian-user',
 	     'tramp-devel@'         => 'rcp',
 	     'rittenhouse80211'     => '80211',
@@ -294,8 +298,7 @@ for my $pattern (keys %list_id_lists) {
 }
 
 my %mailing_list_lists = (
-			  'perl5-porters' => 'p5p',
-			  'debian-devel'  => 'debian-devel'
+			  'perl5-porters' => 'p5p'
 	    );
 
 for my $pattern (keys %mailing_list_lists) {
