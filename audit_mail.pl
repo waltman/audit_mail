@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.20  2001/06/20 02:47:01  waltman
+# Added yapc-planning
+#
 # Revision 1.19  2001/05/29 03:23:16  waltman
 # Added pm-road-trips
 #
@@ -178,6 +181,7 @@ accept_mail($msg, '/var/spool/mail/waltman');
 
 sub accept_mail {
     my ($msg, $folder) = @_;
+    $folder |= '/var/spool/mail/waltman';  # default to inbox if it's blank
     log_mail($msg, $folder);
     $msg->accept($folder);
 }
