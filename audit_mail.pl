@@ -3,6 +3,7 @@ use strict;
 
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
+use Mail::SpamAssassin;
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency');
 my $maildir = '/home/waltman/Mail/';
@@ -35,14 +36,22 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
 
 $msg->fix_pgp_headers;
 
-# check for bad from addresses
-if (open BMF, "/var/qmail/control/badmailfrom.wcm") {
-    while (<BMF>) {
-	chomp;
-	accept_mail($msg, $maildir.'spam')
-	    if index($msg->get('From'), $_) >= 0;
-    }
-    close BMF
+# # check for bad from addresses
+# if (open BMF, "/var/qmail/control/badmailfrom.wcm") {
+#     while (<BMF>) {
+# 	chomp;
+# 	accept_mail($msg, $maildir.'spam')
+# 	    if index($msg->get('From'), $_) >= 0;
+#     }
+#     close BMF
+# }
+
+# run through spamassassin
+my $spamtest = Mail::SpamAssassin->new();
+my $status = $spamtest->check($msg);
+
+if ($status->is_spam ()) {
+    accept_mail($msg, $maildir.'spam');
 }
 
 my %lists = (
