@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.24  2001/07/22 13:51:43  waltman
+# Another attempt to trap that one bad message.  This time I added code
+# in the perl6-all logic itself.
+#
 # Revision 1.23  2001/07/21 23:25:06  waltman
 # Another attempted fix to blank folder problem.  Now I'm checking if
 # it's all whitespace.
@@ -131,7 +135,8 @@ for my $pattern (keys %sender_lists) {
 
 my %beenthere_lists = (
 	     'plug@lists.phillylinux.org' => 'plug',
-	     'pm-road-trips@'             => 'pm-road-trips'
+	     'pm-road-trips@'             => 'pm-road-trips',
+	     'reefknot-devel@'            => 'reefknot-devel'
 	    );
 
 for my $pattern (keys %beenthere_lists) {
