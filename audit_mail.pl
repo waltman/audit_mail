@@ -90,7 +90,8 @@ my %sender_lists = (
 		    'owner-paris-pm-list'   => 'paris.pm',
 		    'yapc-plan'             => 'yapc-plan',
 		    'owner-yapc-europe'     => 'yapc-europe',
-		    'owner-mutt-users'      => 'mutt'
+		    'owner-mutt-users'      => 'mutt',
+		    'owner-ip@'             => 'ip'
 	    );
 
 for my $pattern (keys %sender_lists) {
@@ -136,8 +137,7 @@ for my $pattern (keys %subject_lists) {
 my %list_id_lists = (
 		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
 		     'pm_groups.pm.org'                  => 'pm_groups',
-		     'pv.lists.LinuxForce.net'           => 'lfi',
-		     '^ip@'                              => 'ip'
+		     'pv.lists.LinuxForce.net'           => 'lfi'
 		    );
 
 for my $pattern (keys %list_id_lists) {
