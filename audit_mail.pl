@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.36  2002/04/04 04:37:30  waltman
+# Set nomime=1, since it was rewriting message bodies and messing up gpg sigs.
+# Set an emergency mailbox
+#
 # Revision 1.35  2002/04/04 03:39:15  waltman
 # Increased cache_bytes to 30000
 #
@@ -220,7 +224,7 @@ my %subject_lists = (
 		     'Dilbert Newsletter'   => 'dilbert',
 		     '\[pennfans\]'         => 'pennfans',
 		     '\[PADS\]'             => 'pads',
-		     '\[bitsntits\]'        => 'bnt'
+		     '\[yapc-lodging\]'     => 'yapc-lodging'
 		    );
 
 for my $pattern (keys %subject_lists) {
