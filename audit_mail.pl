@@ -143,7 +143,8 @@ for my $pattern (keys %list_id_lists) {
 
 my %mailing_list_lists = (
 			  'perl5-porters' => 'p5p',
-			  'libtai-help'   => 'libtai'
+			  'libtai-help'   => 'libtai',
+			  'ex-ad'         => 'ex-ad'
 	    );
 
 for my $pattern (keys %mailing_list_lists) {
