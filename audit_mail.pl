@@ -163,6 +163,18 @@ for my $pattern (keys %x_mailing_list_lists) {
 	if $msg->get('X-Mailing-List') =~ /$pattern/i;
 }
 
+# Messages from perl6-all go to the folder specified in the X-Mailing-List header
+if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
+    my $perl6_list = $msg->get('X-Mailing-List-Name');
+    chomp $perl6_list;
+    if ($perl6_list =~ /^\s*$/)
+	{
+	accept_mail($msg, '/home/waltman/Maildir');
+    } else {
+	accept_mail($msg, $maildir.$perl6_list);
+    }
+}
+
 # This should work for all ezmlm lists
 if ($msg->get('List-Post') =~ /mailto:([^@]+)@/) {
     accept_mail($msg, $maildir.$1)
@@ -186,18 +198,6 @@ if ($msg->subject =~ /sendhotmailip/) {
 if ($msg->subject =~ /sendmiscip/) {
     log_mail($msg, 'sendmiscip');
     $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" wmankows@misc.arsdigita.com')
-}
-
-# Messages from perl6-all go to the folder specified in the X-Mailing-List header
-if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
-    my $perl6_list = $msg->get('X-Mailing-List-Name');
-    chomp $perl6_list;
-    if ($perl6_list =~ /^\s*$/)
-	{
-	accept_mail($msg, '/home/waltman/Maildir');
-    } else {
-	accept_mail($msg, $maildir.$perl6_list);
-    }
 }
 
 accept_mail($msg, '/home/waltman/Maildir');
