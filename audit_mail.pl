@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.10  2001/02/23 03:11:34  waltman
+# Replaced my old PGP code with the PGP plugin which adds the correct headers.
+#
 # Revision 1.9  2001/01/30 03:56:23  waltman
 # Uncommented out PGP header code.
 #
@@ -62,7 +65,8 @@ my %lists = (
 	     'debian-security-announce' => 'debian-security-announce',
 	     'debian-devel-announce' => 'debian-devel-announce',
 	     'debian-user'          => 'debian-user',
-	     'emacs-rcp@'           => 'rcp'
+	     'emacs-rcp@'           => 'rcp',
+	     'rittenhouse80211'     => '80211'
 	    );
 
 for my $pattern (keys %lists) {
@@ -101,8 +105,10 @@ for my $pattern (keys %from_lists) {
 }
 
 my %subject_lists = (
-	     'Dilbert Newsletter'   => 'dilbert'
-	    );
+		     'Dilbert Newsletter'   => 'dilbert',
+		     '\[pennfans\]'         => 'pennfans',
+		     '\[PADS\]'             => 'pads'
+		    );
 
 for my $pattern (keys %subject_lists) {
     accept_mail($msg, $maildir.$subject_lists{$pattern})
