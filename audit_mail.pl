@@ -1,7 +1,10 @@
 #!/usr/local/bin/perl
 use strict;
 
-# $Log$
+# $Log: audit_mail.pl,v $
+# Revision 1.5  2000/10/26 00:36:17  waltman
+# Added RBL checking and a bunch of Debian lists
+#
 
 use Mail::Audit;
 use Text::Tabs;
@@ -35,6 +38,7 @@ my %lists = (
 	     'leafnode-list@'       => 'leafnode',
 	     'redhat-announce'      => 'redhat_announce',
 	     'phl@lists.pm.org'     => 'perlmong',
+	     'ny@lists.pm.org'      => 'ny.pm',
 	     'gnome-announce-list@' => 'gnome_announce',
 	     'bootstrap@perl.org'   => 'bootstrap',
 	     'debian-announce'      => 'debian-announce',
@@ -115,13 +119,6 @@ if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
     my $perl6_list = $msg->get('X-Mailing-List-Name');
     chomp $perl6_list;
     accept_mail($msg, $maildir.$perl6_list);
-}
-
-# Check the mail headers against the RBL list.  If it fails, we'll put in
-# into a spam folder.
-if (my $reason = $msg->rblcheck) {
-    log_mail($msg, "RBL failure: $reason");
-    accept_mail($msg, $maildir . 'spam');
 }
 
 accept_mail($msg, '/var/spool/mail/waltman');
