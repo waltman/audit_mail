@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.7  2000/12/29 03:19:20  waltman
+# Added debian-devel-announce
+#
 # Revision 1.6  2000/10/26 00:37:32  waltman
 # Added ny.pm list
 # Remove RBL checking, since it never seems to catch anything
@@ -23,10 +26,10 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
 }
 
 # If it's a PGP message, see if we need to add a header and resubmit
-if (my $pgp_action = need_pgp_header($msg)) {
-    log_mail($msg, "Adding PGP header, x-action = $pgp_action");
-    $msg->pipe("formail -i \"Content-Type: application/pgp; format=text; x-action=$pgp_action\" -ds /home/waltman/bin/audit_mail.pl");
-}
+#if (my $pgp_action = need_pgp_header($msg)) {
+#    log_mail($msg, "Adding PGP header, x-action = $pgp_action");
+#    $msg->pipe("formail -i \"Content-Type: application/pgp; format=text; x-action=$pgp_action\" -ds /home/waltman/bin/audit_mail.pl");
+#}
 
 my %lists = (
 	     'qmail@'               => 'qmail',
