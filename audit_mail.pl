@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.42  2002/08/01 01:10:42  waltman
+# Commented out killdups checking
+# Added cpanplus-bugs
+#
 # Revision 1.41  2002/06/09 03:54:47  waltman
 # Added some rudimentary spam checking for known bad from addresses.
 #
@@ -257,6 +261,15 @@ my %subject_lists = (
 for my $pattern (keys %subject_lists) {
     accept_mail($msg, $maildir.$subject_lists{$pattern})
 	if $msg->subject =~ /$pattern/i;
+}
+
+my %list_id_lists = (
+	     'bugtraq.list-id.securityfocus.com' => 'bugtraq'
+	    );
+
+for my $pattern (keys %list_id_lists) {
+    accept_mail($msg, $maildir.$list_id_lists{$pattern})
+	if $msg->get('List-Id') =~ /$pattern/i;
 }
 
 if ($msg->subject =~ /sendcellip/) {
