@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.15  2001/05/16 02:42:29  waltman
+# Changed regex comparisons to be case-insensitive
+#
 # Revision 1.14  2001/04/25 01:58:35  waltman
 # DOH!  Check $msg->subject when checking subject.
 #
@@ -56,6 +59,7 @@ if ($msg->subject =~ /BUGTRAQ Digest/) {
 my %lists = (
 	     'qmail@'               => 'qmail',
 	     'boston-pm@'           => 'boston.pm',
+	     'london-pm@'           => 'london.pm',
 	     'mutt.*@mutt.org'      => 'mutt',
 	     'mutt.*@gbnet.net'     => 'mutt',
 	     'BUGTRAQ@'             => 'bugtraq',
