@@ -87,7 +87,8 @@ my %sender_lists = (
 		    'yapc-plan'             => 'yapc-plan',
 		    'owner-yapc-europe'     => 'yapc-europe',
 		    'owner-mutt-users'      => 'mutt',
-		    'owner-ip@'             => 'ip'
+		    'owner-ip@'             => 'ip',
+                    'owner-spf-discuss@'    => 'spf-discuss'
 	    );
 
 for my $pattern (keys %sender_lists) {
