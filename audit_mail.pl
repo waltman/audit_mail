@@ -2,6 +2,10 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.45  2002/09/22 03:28:38  waltman
+# Added a check for dcanet-outage, and make dc.pm check more explicit so
+# that dcanet-outage mails don't end up there.
+#
 # Revision 1.44  2002/09/07 00:11:07  waltman
 # Added another p5p check by looking at the Mailing-List header.  This
 # should catch the mail to perl-bugs which was getting missed by only
@@ -274,7 +278,8 @@ for my $pattern (keys %subject_lists) {
 }
 
 my %list_id_lists = (
-	     'bugtraq.list-id.securityfocus.com' => 'bugtraq'
+		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
+		     'pm_groups.pm.org'                  => 'pm_groups'
 	    );
 
 for my $pattern (keys %list_id_lists) {
