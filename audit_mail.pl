@@ -2,6 +2,9 @@
 use strict;
 
 # $Log: audit_mail.pl,v $
+# Revision 1.16  2001/05/20 15:25:12  waltman
+# Added london.pm
+#
 # Revision 1.15  2001/05/16 02:42:29  waltman
 # Changed regex comparisons to be case-insensitive
 #
@@ -186,15 +189,17 @@ sub body_length {
 
 sub log_mail {
     my ($msg, $folder) = @_;
+    my $from = $msg->get('From');
 
     # remove path from folder
     $folder =~ s/.*\///;
 
+    # remove newline from "from"
+    chomp $from;
+
     open LOG, '>>/home/waltman/Mail/mail_audit_log' or die "Can't open /home/waltman/Mail/mail_audit_log: $!";
-    print LOG "From ", $msg->get('From ');
+    print LOG "From: ", $from, '  ', scalar localtime, "\n";
     print LOG " Subject: ", $msg->subject();
     my $line3 = sprintf("  Folder: %-60s%9s\n", $folder, body_length($msg));
     print LOG unexpand($line3);
 }
-
-
