@@ -168,11 +168,12 @@ for my $pattern (keys %list_id_lists) {
 }
 
 my %mailing_list_lists = (
-			  'perl5-porters' => 'p5p',
-			  'libtai-help'   => 'libtai',
-			  'ex-ad'         => 'ex-ad',
-			  'phillyjobs'    => 'phillyjobs',
-			  'pennfans'      => 'pennfans'
+			  'perl5-porters'   => 'p5p',
+			  'libtai-help'     => 'libtai',
+			  'ex-ad'           => 'ex-ad',
+			  'phillyjobs'      => 'phillyjobs',
+			  'pennfans'        => 'pennfans',
+			  'BrynMawrSpecFic' => 'BrynMawrSpecFic'
 			 );
 
 for my $pattern (keys %mailing_list_lists) {
