@@ -133,7 +133,7 @@ my %list_id_lists = (
 		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
 		     'pm_groups.pm.org'                  => 'pm_groups',
 		     'pv.lists.LinuxForce.net'           => 'lfi',
-		     'announce.pennclubofboston.org'     => 'pennclubofboston'
+		     'announce.pennclubofboston.org'     => 'pennclubofbostonn'
 		    );
 
 for my $pattern (keys %list_id_lists) {
@@ -207,6 +207,7 @@ sub accept_mail {
     my ($msg, $folder) = @_;
     $folder = '/home/waltman/Maildir' if $folder =~ /^\s*$/;  # default to inbox if it's blank
     log_mail($msg, $folder);
+    report_new_folder($folder) unless -e $folder;
     $msg->accept($folder);
 }
 
@@ -243,3 +244,26 @@ sub log_mail {
     my $line3 = sprintf("  Folder: %-60s%9s\n", $folder, body_length($msg));
     print LOG unexpand($line3);
 }
+
+sub report_new_folder {
+    my $folder = shift;
+
+    unless (open(SENDMAIL, "|/usr/lib/sendmail -oi -t -odq")) {
+	warn "Can't fork for sendmail: $!\n";
+	return;
+    }
+    print SENDMAIL <<"EOF";
+From: audit_mail.pl <waltman\@waltman.dnsalias.org>
+To: Walt Mankowski <waltman>
+Subject: Creating new mail folder ($folder)
+
+I just created a new mail folder -- $folder
+You might want to add it to your .muttrc
+
+Hugs,
+audit_mail.pl
+
+EOF
+    close(SENDMAIL)     or warn "sendmail didn't close nicely";
+}
+
