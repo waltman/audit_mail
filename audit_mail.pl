@@ -102,6 +102,13 @@ if ($msg->subject =~ /sendmiscip/) {
     $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" wmankows@misc.arsdigita.com')
 }
 
+# Messages from perl6-all go to the folder specified in the X-Mailing-List header
+if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
+    my $perl6_list = $msg->get('X-Mailing-List-Name');
+    chomp $perl6_list;
+    accept_mail($msg, $maildir.$perl6_list);
+}
+
 accept_mail($msg, '/var/spool/mail/waltman');
 
 sub need_pgp_header {
@@ -166,3 +173,5 @@ sub log_mail {
     my $line3 = sprintf("  Folder: %-60s%9s\n", $folder, body_length($msg));
     print LOG unexpand($line3);
 }
+
+
