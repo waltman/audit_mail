@@ -136,7 +136,8 @@ for my $pattern (keys %subject_lists) {
 my %list_id_lists = (
 		     'bugtraq.list-id.securityfocus.com' => 'bugtraq',
 		     'pm_groups.pm.org'                  => 'pm_groups',
-		     'pv.lists.LinuxForce.net'           => 'lfi'
+		     'pv.lists.LinuxForce.net'           => 'lfi',
+		     '^ip@'                              => 'ip'
 		    );
 
 for my $pattern (keys %list_id_lists) {
