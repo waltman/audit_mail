@@ -110,7 +110,8 @@ my %list_id_lists = (
 		     'pv.lists.LinuxForce.net'           => 'lfi',
 		     'announce.pennclubofboston.org'     => 'pennclubofboston',
                      'abe-pm.mail.pm.org'                => 'abe.pm',
-                     'abe-pm.pm.org'                     => 'abe.pm'
+                     'abe-pm.pm.org'                     => 'abe.pm',
+                     'spf-discuss'                       => 'spf-discuss'
 		    );
 
 for my $pattern (keys %list_id_lists) {
