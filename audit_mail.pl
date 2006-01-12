@@ -85,6 +85,7 @@ for my $pattern (keys %beenthere_lists) {
 
 my %from_lists = (
 		  'qvc_email'           => 'iqvc',
+		  'qvcemail'            => 'iqvc',
 		  'enews@xpn.org'       => 'xpn',
 		 );
 
