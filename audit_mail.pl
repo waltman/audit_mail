@@ -61,7 +61,8 @@ my %sender_lists = (
 		    'owner-ip@'             => 'ip',
                     'owner-spf-discuss@'    => 'spf-discuss',
                     'owner-ny@'             => 'ny.pm',
-                    'awsff@'                => 'awsff'
+                    'awsff@'                => 'awsff',
+                    'wn-similarity@'        => 'wn-similarity'
 	    );
 
 for my $pattern (keys %sender_lists) {
