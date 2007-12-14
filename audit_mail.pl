@@ -99,7 +99,8 @@ for my $pattern (keys %from_lists) {
 my %subject_lists = (
 		     'Dilbert Newsletter'   => 'dilbert',
 		     '\[PADS\]'             => 'pads',
-		     '\[yapc-lodging\]'     => 'yapc-lodging'
+		     '\[yapc-lodging\]'     => 'yapc-lodging',
+                     'get_feeds.pl'         => 'news_feeds'
 		    );
 
 for my $pattern (keys %subject_lists) {
