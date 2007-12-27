@@ -209,7 +209,7 @@ sub commify {
 
 sub body_length {
     my $msg = shift;
-    my $body = $msg->{obj}->body();
+    my $body = $msg->body();
     my $body_length = 0;
     foreach (@$body) {
 	$body_length += length;
