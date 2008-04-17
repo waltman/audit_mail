@@ -89,6 +89,8 @@ my %from_lists = (
 		  'qvc_mail'            => 'iqvc',
 		  'qvcemail'            => 'iqvc',
 		  'enews@xpn.org'       => 'xpn',
+                  'wiredcampus@chronicle.com' => 'chronicle',
+                  'daily-html@chronicle.com'  => 'chronicle',
 		 );
 
 for my $pattern (keys %from_lists) {
