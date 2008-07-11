@@ -245,7 +245,7 @@ sub report_new_folder {
 	return;
     }
     print SENDMAIL <<"EOF";
-From: audit_mail.pl <waltman\@waltman.dnsalias.org>
+From: audit_mail.pl <waltman\@mawode.com>
 To: Walt Mankowski <waltman>
 Subject: Creating new mail folder ($folder)
 
