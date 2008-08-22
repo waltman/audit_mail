@@ -4,7 +4,7 @@ use strict;
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
 
-my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency');
+my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency', no_log => 1);
 my $maildir = '/home/waltman/Mail/';
 
 $msg->fix_pgp_headers;
