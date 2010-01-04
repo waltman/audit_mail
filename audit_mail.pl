@@ -62,6 +62,8 @@ my %sender_lists = (
 		    'owner-ip@'             => 'ip',
                     'owner-spf-discuss@'    => 'spf-discuss',
                     'owner-ny@'             => 'ny.pm',
+                    'owner-or-announce@'    => 'or-announce',
+                    'owner-or-talk@'        => 'or-talk',
                     'awsff@'                => 'awsff',
                     'wn-similarity@'        => 'wn-similarity'
 	    );
