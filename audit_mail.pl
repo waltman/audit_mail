@@ -94,6 +94,8 @@ my %from_lists = (
 		  'enews@xpn.org'       => 'xpn',
                   'wiredcampus@chronicle.com' => 'chronicle',
                   'daily-html@chronicle.com'  => 'chronicle',
+                  'circulation@chronicle.com' => 'chronicle',
+                  'partner@chroniclepartners.com'  => 'chronicle',
 		 );
 
 for my $pattern (keys %from_lists) {
