@@ -6,6 +6,8 @@ use Text::Tabs;
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency', no_log => 1);
 my $maildir = '/home/waltman/Mail/';
+my $inbox = '/home/waltman/Maildir';
+my $imap = '/home/waltman/imap';
 
 $msg->fix_pgp_headers;
 
@@ -168,7 +170,7 @@ if ($msg->get('List-Post') =~ /perl6\-all\@perl\.org/) {
     chomp $perl6_list;
     if ($perl6_list =~ /^\s*$/)
 	{
-	accept_mail($msg, '/home/waltman/Maildir');
+	accept_mail($msg, $inbox);
     } else {
 	accept_mail($msg, $maildir.$perl6_list);
     }
@@ -199,13 +201,15 @@ if ($msg->subject =~ /sendmiscip/) {
     $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" wmankows@misc.arsdigita.com')
 }
 
-accept_mail($msg, '/home/waltman/Maildir');
+accept_mail($msg, $inbox);
 
 sub accept_mail {
     my ($msg, $folder) = @_;
-    $folder = '/home/waltman/Maildir' if $folder =~ /^\s*$/;  # default to inbox if it's blank
+    $folder = $inbox if $folder =~ /^\s*$/;  # default to inbox if it's blank
     log_mail($msg, $folder);
     report_new_folder($folder) unless -e $folder;
+
+    $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
     $msg->accept($folder);
 }
 
