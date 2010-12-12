@@ -201,6 +201,11 @@ if ($msg->subject =~ /sendmiscip/) {
     $msg->pipe('/sbin/ifconfig | grep inet | mail -s "IP Address" wmankows@misc.arsdigita.com')
 }
 
+if ($msg->subject =~ /testimapqp/) {
+    log_mail($msg, 'imap');
+    $msg->resend('waltman-imap', {port => 2525});
+}
+
 accept_mail($msg, $inbox);
 
 sub accept_mail {
@@ -209,13 +214,13 @@ sub accept_mail {
     log_mail($msg, $folder);
     report_new_folder($folder) unless -e $folder;
 
-    $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
-    $msg->accept($folder);
-#    if ($folder eq $inbox) {
-#        $msg->resend('waltman-imap', port => 2525);
-#    } else {
-#        $msg->accept($folder);
-#    }
+#    $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
+#    $msg->accept($folder);
+   if ($folder eq $inbox) {
+       $msg->resend('waltman-imap', {port => 2525});
+   } else {
+       $msg->accept($folder);
+   }
 }
 
 sub commify {
