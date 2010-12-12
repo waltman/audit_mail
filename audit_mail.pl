@@ -209,13 +209,13 @@ sub accept_mail {
     log_mail($msg, $folder);
     report_new_folder($folder) unless -e $folder;
 
-#     $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
-#     $msg->accept($folder);
-    if ($folder eq $inbox) {
-        $msg->resend('waltman-imap');
-    } else {
-        $msg->accept($folder);
-    }
+    $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
+    $msg->accept($folder);
+#    if ($folder eq $inbox) {
+#        $msg->resend('waltman-imap', port => 2525);
+#    } else {
+#        $msg->accept($folder);
+#    }
 }
 
 sub commify {
