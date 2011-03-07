@@ -125,6 +125,7 @@ my %list_id_lists = (
 		     'announce.pennclubofboston.org'     => 'pennclubofboston',
                      'abe-pm.mail.pm.org'                => 'abe.pm',
                      'abe-pm.pm.org'                     => 'abe.pm',
+                     'philadelphia-pm.pm.org'            => 'phl.pm',
                      'spf-discuss'                       => 'spf-discuss',
                      'fslist'                            => 'fslist',
                      'talk.phillyonrails.org'            => 'phillyonrails'
