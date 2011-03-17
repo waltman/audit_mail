@@ -212,8 +212,9 @@ accept_mail($msg, $inbox);
 sub accept_mail {
     my ($msg, $folder) = @_;
     $folder = $inbox if $folder =~ /^\s*$/;  # default to inbox if it's blank
+    $folder = $inbox unless -e $folder;      # don't autocreate new folders
     log_mail($msg, $folder);
-    report_new_folder($folder) unless -e $folder;
+#     report_new_folder($folder) unless -e $folder;
 
 #    $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
 #    $msg->accept($folder);
