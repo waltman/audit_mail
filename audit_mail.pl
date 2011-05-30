@@ -1,10 +1,11 @@
-#!/usr/local/bin/perl
+#!/usr/bin/env perl
 use strict;
+use warnings;
 
-use Mail::Audit qw(PGP KillDups);
+use Mail::Audit2 qw(PGP KillDups);
 use Text::Tabs;
 
-my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency', no_log => 1);
+my $msg = Mail::Audit2->new(nomime => 1, emergency => '/home/waltman/Mail/emergency', no_log => 1);
 my $maildir = '/home/waltman/Mail/';
 my $inbox = '/home/waltman/Maildir';
 my $imap = '/home/waltman/imap';
