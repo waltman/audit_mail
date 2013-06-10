@@ -100,11 +100,23 @@ my %from_lists = (
                   'daily-html@chronicle.com'  => 'chronicle',
                   'circulation@chronicle.com' => 'chronicle',
                   'partner@chroniclepartners.com'  => 'chronicle',
+                  'epitek'                 => 'epitek',
+                  'flavie.dibou@gmail.com' => 'epitek',
 		 );
 
 for my $pattern (keys %from_lists) {
     accept_mail($msg, $maildir.$from_lists{$pattern})
 	if $msg->from =~ /$pattern/i;
+}
+
+my %to_lists = (
+                  'epitek'                 => 'epitek',
+                  'flavie.dibou@gmail.com' => 'epitek',
+               );
+
+for my $pattern (keys %to_lists) {
+    accept_mail($msg, $maildir.$to_lists{$pattern})
+	if $msg->to =~ /$pattern/i;
 }
 
 my %subject_lists = (
