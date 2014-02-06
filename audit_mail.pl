@@ -69,7 +69,8 @@ my %sender_lists = (
                     'owner-or-talk@'        => 'or-talk',
                     'owner-tor-relays@'     => 'tor-relays',
                     'awsff@'                => 'awsff',
-                    'wn-similarity@'        => 'wn-similarity'
+                    'wn-similarity@'        => 'wn-similarity',
+                    'ibi@lists.upenn.edu'   => 'pbflist'
 	    );
 
 for my $pattern (keys %sender_lists) {
