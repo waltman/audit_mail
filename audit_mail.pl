@@ -145,6 +145,7 @@ my %list_id_lists = (
                      'spf-discuss'                       => 'spf-discuss',
                      'fslist'                            => 'fslist',
                      'london.pm.groups.perlists.pm'      => 'london.pm',
+                     'gnupg-announce.gnupg.org'          => 'gnupg-announce',
                      'talk.phillyonrails.org'            => 'phillyonrails'
 		    );
 
