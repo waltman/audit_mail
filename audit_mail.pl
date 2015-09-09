@@ -56,6 +56,7 @@ my %sender_lists = (
 		    'owner-linux-future'    => 'linux_future',
 		    'mersenne-invalid-reply-address'      => 'gimps',
 		    'owner-dc@'             => 'dc.pm',
+		    'dc-bounces\+waltman'   => 'dc.pm',
 		    'owner-dcanet-outage@'  => 'dcanet-outage',
 		    'owner-fslist'          => 'fslist',
 		    'owner-paris-pm-list'   => 'paris.pm',
@@ -143,6 +144,7 @@ my %list_id_lists = (
                      'philadelphia-pm.pm.org'            => 'phl.pm',
                      'spf-discuss'                       => 'spf-discuss',
                      'fslist'                            => 'fslist',
+                     'london.pm.groups.perlists.pm'      => 'london.pm',
                      'talk.phillyonrails.org'            => 'phillyonrails'
 		    );
 
