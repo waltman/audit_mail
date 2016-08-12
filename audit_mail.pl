@@ -71,7 +71,8 @@ my %sender_lists = (
                     'owner-tor-relays@'     => 'tor-relays',
                     'awsff@'                => 'awsff',
                     'wn-similarity@'        => 'wn-similarity',
-                    'ibi@lists.upenn.edu'   => 'pbflist'
+                    'ibi@lists.upenn.edu'   => 'pbflist',
+                    'opencv@'               => 'opencv'
 	    );
 
 for my $pattern (keys %sender_lists) {
