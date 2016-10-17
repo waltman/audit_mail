@@ -72,7 +72,8 @@ my %sender_lists = (
                     'awsff@'                => 'awsff',
                     'wn-similarity@'        => 'wn-similarity',
                     'ibi@lists.upenn.edu'   => 'pbflist',
-                    'opencv@'               => 'opencv'
+                    'opencv@'               => 'opencv',
+                    'IMAGEJ@'               => 'imagej'
 	    );
 
 for my $pattern (keys %sender_lists) {
