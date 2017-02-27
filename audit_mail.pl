@@ -1,14 +1,29 @@
-#!/usr/bin/env perl
+#!/usr/local/bin/perl
 use strict;
 use warnings;
 
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
+#use Mail::SpamAssassin;
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency', no_log => 1);
 my $maildir = '/home/waltman/Mail/';
 my $inbox = '/home/waltman/Maildir';
 my $imap = '/home/waltman/imap';
+# my $spamassassin_semaphore = 'home/waltman/.sa_skip';
+
+# unless (-e $spamassassin_semaphore) {
+#     my $spamtest = Mail::SpamAssassin->new( { rules_filename => '/usr/share/spamassassin'} );
+#     my $mail = $spamtest->parse($msg);
+#     my $status = $spamtest->check($mail);
+
+#     if ($status->is_spam()) {
+# #         $msg = $status->rewrite_mail();
+#         accept_mail($msg, $maildir . "spam");
+#     }
+# }
+
+accept_mail($msg, $maildir . "spam") if $msg->get('X-Spam-Flag') =~ /YES/i;
 
 $msg->fix_pgp_headers;
 
@@ -54,7 +69,7 @@ for my $pattern (keys %lists) {
 my %sender_lists = (
 		    'owner-linux-kernel'    => 'linux_kernel',
 		    'owner-linux-future'    => 'linux_future',
-		    'mersenne-invalid-reply-address'      => 'gimps',
+		    'mersenne-users'        => 'gimps',
 		    'owner-dc@'             => 'dc.pm',
 		    'dc-bounces\+waltman'   => 'dc.pm',
 		    'owner-dcanet-outage@'  => 'dcanet-outage',
@@ -116,6 +131,16 @@ for my $pattern (keys %from_lists) {
 my %to_lists = (
                   'epitek'                 => 'epitek',
                   'flavie.dibou@gmail.com' => 'epitek',
+		  'waltman-acm'		   => 'acm',
+		  'waltman-adc'		   => 'adc',
+		  'waltman-alumni'	   => 'alumni',
+		  'waltman-facebook'	   => 'facebook',
+		  'waltman-mlb'		   => 'mlb',
+		  'waltman-obama'	   => 'obama',
+		  'waltman-orkut'	   => 'orkut',
+		  'waltman-postmaster' 	   => 'postmaster',
+		  'waltman-twitter'	   => 'twitter',
+		  'waltman-webmaster'      => 'webmaster',
                );
 
 for my $pattern (keys %to_lists) {
@@ -127,7 +152,8 @@ my %subject_lists = (
 		     'Dilbert Newsletter'   => 'dilbert',
 		     '\[PADS\]'             => 'pads',
 		     '\[yapc-lodging\]'     => 'yapc-lodging',
-                     'get_feeds.pl'         => 'news_feeds'
+                     'get_feeds.pl'         => 'news_feeds',
+                     '\[Fail2Ban\]'         => 'fail2ban',
 		    );
 
 for my $pattern (keys %subject_lists) {
@@ -239,7 +265,8 @@ sub accept_mail {
 #    $msg->accept($imap, { noexit => 1 }) if $folder eq $inbox;
 #    $msg->accept($folder);
    if ($folder eq $inbox) {
-       $msg->resend('waltman-imap', {port => 2525});
+       #       $msg->resend('waltman-imap', {port => 2525});
+       $msg->accept($inbox, $imap);
    } else {
        $msg->accept($folder);
    }
