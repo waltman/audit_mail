@@ -131,7 +131,7 @@ for my $pattern (keys %from_lists) {
 my %to_lists = (
                   'epitek'                 => 'epitek',
                   'flavie.dibou@gmail.com' => 'epitek',
-		  'waltman-acm'		   => 'acm',
+		  'waltman-acm@'	   => 'acm',
 		  'waltman-adc'		   => 'adc',
 		  'waltman-alumni'	   => 'alumni',
 		  'waltman-facebook'	   => 'facebook',
