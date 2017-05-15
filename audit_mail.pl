@@ -4,26 +4,33 @@ use warnings;
 
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
-#use Mail::SpamAssassin;
+use Mail::SpamAssassin;
 
 my $msg = Mail::Audit->new(nomime => 1, emergency => '/home/waltman/Mail/emergency', no_log => 1);
 my $maildir = '/home/waltman/Mail/';
 my $inbox = '/home/waltman/Maildir';
 my $imap = '/home/waltman/imap';
-# my $spamassassin_semaphore = 'home/waltman/.sa_skip';
+my $spamassassin_semaphore = 'home/waltman/.sa_skip';
 
-# unless (-e $spamassassin_semaphore) {
-#     my $spamtest = Mail::SpamAssassin->new( { rules_filename => '/usr/share/spamassassin'} );
-#     my $mail = $spamtest->parse($msg);
-#     my $status = $spamtest->check($mail);
+unless (-e $spamassassin_semaphore) {
+    my $raw = $msg->as_string;
+    my $spamtest = Mail::SpamAssassin->new( { rules_filename => '/usr/share/spamassassin'} );
+    my $mail = $spamtest->parse($raw);
+    my $status = $spamtest->check($mail);
 
-#     if ($status->is_spam()) {
-# #         $msg = $status->rewrite_mail();
-#         accept_mail($msg, $maildir . "spam");
-#     }
-# }
+    if ($status->is_spam()) {
+        my $spam = $status->rewrite_mail();
+        my @lines = map { "$_\n" } split /\n/, $spam;
 
-accept_mail($msg, $maildir . "spam") if $msg->get('X-Spam-Flag') =~ /YES/i;
+        my $spam_msg = Mail::Audit->new(nomime => 1,
+                                        emergency => '/home/waltman/Mail/emergency',
+                                        no_log => 1,
+                                        data => \@lines);
+        accept_mail($spam_msg, $maildir . "spam");
+    }
+}
+
+# accept_mail($msg, $maildir . "spam") if $msg->get('X-Spam-Flag') =~ /YES/i;
 
 $msg->fix_pgp_headers;
 
