@@ -14,7 +14,9 @@ my $spamassassin_semaphore = 'home/waltman/.sa_skip';
 
 unless (-e $spamassassin_semaphore) {
     my $raw = $msg->as_string;
-    my $spamtest = Mail::SpamAssassin->new( { rules_filename => '/usr/share/spamassassin'} );
+    my $spamtest = Mail::SpamAssassin->new( { rules_filename => '/usr/share/spamassassin',
+                                              site_rules_filename => '/etc/spamassassin',
+                                            } );
     my $mail = $spamtest->parse($raw);
     my $status = $spamtest->check($mail);
 
