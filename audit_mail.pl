@@ -1,6 +1,7 @@
 #!/usr/local/bin/perl
 use strict;
 use warnings;
+use lib qw(/usr/share/perl5);
 
 use Mail::Audit qw(PGP KillDups);
 use Text::Tabs;
